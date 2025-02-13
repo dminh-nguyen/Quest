@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+}
+
+/* General Page Layout */
+.jobs-list-page {
+  font-family: "Grenze", serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Header */
+.page-header {
+  text-align: center;
+  /* margin-bottom: 30px; */
+}
+
+.page-header h1 {
+  font-size: 7rem;
+  font-family: "Grenze", serif;
+  color: #682600;
+  margin-bottom: 0;
+}
+
+.page-header p {
+  font-size: 2rem;
+  font-family: "Grenze", serif;
+  color: #9a8c98;
+}
+
+/* Filters Section */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.search-input,
+.category-filter,
+.hours-filter {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 12rem;
+  background-color: whitesmoke;
+  color: black;
+  font-family: "Grenze", serif;
+}
+
+.apply-filters-button {
+  background-color: #682600;
+}
+
+.apply-filters-button:hover {
+  background-color: #a90000;
+  transition: 0.5s;
+}
+
+@media (max-width: 680px) {
+  .search-input,
+  .category-filter,
+  .hours-filter {
+    width: 300px;
+  }
+}
+
+.search-input:focus,
+.category-filter:focus,
+.hours-filter:focus {
+  outline: none;
+}
+
+/* Default: 3 Columns for Large Screens */
+.job-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Medium Screens: 2 Columns */
+@media (max-width: 1150px) {
+  .job-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Small Screens: 1 Column */
+@media (max-width: 800px) {
+  .job-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .apply-filters-button {
+    width: 300px;
+  }
+}

@@ -1,0 +1,72 @@
+.post-job-page {
+  margin-top: 30px;
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  background: #ffc39d;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.post-job-page svg {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  height: 1.5rem;
+  color: #eb0000;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #641717;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #641717;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: whitesmoke;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: black;
+}
+
+textarea {
+  height: 100px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #732020;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #944040;
+  transition: ease 0.5s;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+}

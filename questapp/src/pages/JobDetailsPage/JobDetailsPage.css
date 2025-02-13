@@ -1,0 +1,209 @@
+.job-details-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-details-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.job-details-header h1 {
+  font-size: 24px;
+  color: #760c0c;
+}
+
+.apply-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #763434;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #954343;
+}
+
+.apply-button:disabled {
+  background-color: #9f9e9e;
+  cursor: not-allowed;
+}
+
+.job-details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.job-info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 16px;
+}
+
+.job-info p {
+  margin: 0;
+  color: #605e5e;
+}
+
+.job-description {
+  display: block;
+  margin-left: 1px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 4px;
+  white-space: pre-line;
+}
+
+.job-description h2 {
+  display: flex;
+  margin-top: 0;
+  font-size: 18px;
+  color: #444;
+}
+
+.job-description p {
+  display: flex;
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  text-align: left;
+}
+
+.job-details-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+.application-details-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.application-details-section h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  color: #760c0c;
+}
+
+.application-details-section p {
+  font-size: 1rem;
+  margin: 8px 0;
+  color: #555;
+}
+
+.employer-applications-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #eef2f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employer-applications-section p {
+  color: #760c0c;
+}
+
+.employer-applications-section h2 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.employer-application-card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.employer-application-card p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.update-application-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.update-application-form select,
+.update-application-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.edit-button {
+  background-color: rgb(20, 53, 110);
+  width: 80px;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.edit-button svg {
+  height: 12px;
+  margin-right: 5px;
+}
+
+.edit-button:hover {
+  background-color: rgb(45, 73, 123);
+  transition: ease 0.3s;
+}
+
+.update-application-form button {
+  width: 80px;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.update-application-form button svg {
+  height: 12px;
+  margin-right: 5px;
+}
+
+.cancel-button {
+  background-color: rgb(187, 19, 19);
+  width: 80px;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.cancel-button:hover {
+  background-color: rgb(181, 73, 73);
+  transition: ease 0.3s;
+}
