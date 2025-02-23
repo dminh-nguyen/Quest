@@ -1,4 +1,3 @@
-/* Navbar container */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -6,13 +5,11 @@
   padding: 10px 20px;
   background-color: #611818;
   color: #ffffff;
-  /* font-family: "Arial", sans-serif; */
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* Logo styling */
 .navbar-logo img {
   font-size: 1.5rem;
   text-decoration: none;
@@ -20,7 +17,6 @@
   height: 4rem;
 }
 
-/* Links container */
 .navbar-links {
   overflow: hidden;
   transition: 0.3s ease-in;
@@ -33,7 +29,6 @@
   overflow: hidden;
 }
 
-/* Individual links */
 .navbar-link {
   color: #ffffff;
   text-decoration: none;
@@ -42,16 +37,14 @@
 }
 
 .navbar-link:hover {
-  color: #ffc39d; /* Light peach on hover */
+  color: #ffc39d;
 }
 
-/* Navbar toggle button */
 .navbar-toggle {
   display: none;
 }
 
-/* Responsive styling */
-@media (max-width: 650px) {
+@media (max-width: 680px) {
   .navbar {
     display: flex;
     flex-direction: column;

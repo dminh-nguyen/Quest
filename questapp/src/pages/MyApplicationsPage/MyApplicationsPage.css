@@ -3,24 +3,36 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Grenze;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .my-applications-page h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .applications-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 
 .application-card {
   background-color: #f9f9f9;
   padding: 15px;
+  max-width: 350px;
   border-radius: 8px;
+  border: solid 5px #a9a6a6;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.application-card:hover {
+  transform: scale(1.02);
+  border-color: #525252;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s;
 }
 
 .application-card h2 {
@@ -42,4 +54,20 @@
 .error-message {
   color: red;
   text-align: center;
+}
+
+/* Medium Screens: 2 Columns */
+@media (max-width: 900px) {
+  .applications-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Small Screens: 1 Column */
+@media (max-width: 600px) {
+  .applications-list {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 }

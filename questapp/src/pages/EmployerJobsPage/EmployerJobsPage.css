@@ -2,11 +2,14 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .employer-jobs-page h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .error-message {
@@ -16,15 +19,22 @@
 
 .employer-jobs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 
 .employer-job-card {
-  background-color: #f9f9f9;
+  background-color: #ffc39d;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  border: solid 5px #635050;
+}
+
+.employer-job-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9);
+  transition: transform 0.2s;
 }
 
 .employer-job-card h2 {
@@ -41,4 +51,58 @@
   margin: 8px 0;
   font-size: 0.95rem;
   color: #555;
+}
+
+.employer-job-card-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.employer-job-card button {
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: fit-content;
+  height: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.employer-job-card button:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.employer-job-card button svg {
+  height: 12px;
+  margin-right: 5px;
+}
+
+.employer-job-card .edit-button {
+  background-color: #14356e;
+}
+
+.employer-job-card .delete-button {
+  background-color: #df1e10;
+}
+
+/* Medium Screens: 2 Columns */
+@media (max-width: 1150px) {
+  .employer-jobs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Small Screens: 1 Column */
+@media (max-width: 800px) {
+  .employer-jobs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 }

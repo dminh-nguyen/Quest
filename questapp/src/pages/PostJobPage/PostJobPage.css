@@ -46,7 +46,7 @@ textarea {
   height: 100px;
 }
 
-button {
+.post-button {
   width: 100%;
   padding: 10px;
   background: #732020;
@@ -56,7 +56,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.post-button:hover {
   background: #944040;
   transition: ease 0.5s;
 }

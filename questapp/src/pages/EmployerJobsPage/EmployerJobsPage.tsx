@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../auth/AuthContext";
 import { Job } from "../../types/Job";
 import "./EmployerJobsPage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const EmployerJobsPage: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
@@ -52,6 +55,43 @@ const EmployerJobsPage: React.FC = () => {
       : description;
   };
 
+  const navigateToJobPage = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const jobCardElement = e.currentTarget.parentElement?.parentElement;
+    const linkElement = jobCardElement?.querySelector("a");
+    const jobId = linkElement?.getAttribute("href")?.split("/").pop();
+    if (!jobId) return;
+
+    navigate(`/jobs/${jobId}`, { state: { isEditingJob: true } });
+  };
+
+  const deleteJob = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const jobCardElement = e.currentTarget.parentElement?.parentElement;
+    const linkElement = jobCardElement?.querySelector("a");
+    const jobId = linkElement?.getAttribute("href")?.split("/").pop();
+
+    if (!jobId) return;
+
+    const token = localStorage.getItem("token");
+    fetch(`${backendUrl}/api/jobs/${jobId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete job listing");
+        }
+        setJobs(jobs.filter((job) => job._id !== jobId));
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
   return (
     <div className="employer-jobs-page">
       <h1>Your Job Listings</h1>
@@ -74,10 +114,19 @@ const EmployerJobsPage: React.FC = () => {
               <strong>Hours:</strong> {job.hours}
             </p>
             <p>
-              <strong>Type:</strong> {job.employmentType}
+              <strong>Employment Type:</strong> {job.employmentType}
             </p>
-            <p>{truncateDescription(job.description, 9)}</p>
-            {/* You can add buttons here for editing, deleting, or viewing applications */}
+            <p>{truncateDescription(job.description, 15)}</p>
+            <div className="employer-job-card-actions">
+              <button className="edit-button" onClick={navigateToJobPage}>
+                <FontAwesomeIcon icon={faPen} />
+                Edit
+              </button>
+              <button className="delete-button" onClick={deleteJob}>
+                <FontAwesomeIcon icon={faTrash} />
+                Delete
+              </button>
+            </div>
           </div>
         ))}
       </div>

@@ -96,18 +96,10 @@ const MyApplicationsPage: React.FC = () => {
               <p>
                 <strong>Status:</strong> {app.status}
               </p>
-              {app.feedback && (
-                <p>
-                  <strong>Feedback:</strong> {app.feedback}
-                </p>
-              )}
               <p>
                 <strong>Applied On:</strong>{" "}
                 {new Date(app.appliedAt).toLocaleDateString()}
               </p>
-              {/* <p>
-                <strong>Cover Letter:</strong> {app.coverLetter}
-              </p> */}
             </div>
           ))}
         </div>

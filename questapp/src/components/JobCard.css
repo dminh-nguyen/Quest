@@ -9,11 +9,15 @@
   font-family: "Grenze", serif;
   transition: transform 0.2s;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 416px;
 }
 
 .job-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.9);
 }
 
 .job-card-pin {
@@ -66,7 +70,7 @@
   margin-bottom: 20px;
 }
 
-.apply-button {
+.job-card .apply-button {
   background-color: #7d3a3add;
   color: white;
   padding: 10px 15px;
@@ -75,8 +79,10 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.2s;
+  position: absolute;
+  bottom: 10px;
 }
 
-.apply-button:hover {
+.job-card .apply-button:hover {
   background-color: #a90000;
 }

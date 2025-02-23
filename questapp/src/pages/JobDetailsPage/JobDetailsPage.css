@@ -14,6 +14,7 @@
   border-bottom: 1px solid #ddd;
   padding-bottom: 15px;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .job-details-header h1 {
@@ -21,7 +22,38 @@
   color: #760c0c;
 }
 
-.apply-button {
+.job-details-header button {
+  position: absolute;
+  top: 10px;
+}
+
+.job-details-header button:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.job-details-header .edit-button {
+  background-color: #14356e;
+  right: 0;
+}
+
+.job-details-header .save-button {
+  background-color: #0d6e0d;
+  right: 110px;
+}
+
+.job-details-header .cancel-button {
+  background-color: rgb(187, 19, 19);
+  right: 0;
+}
+
+.job-details-header button svg {
+  height: 12px;
+  margin-right: 5px;
+  color: white;
+}
+
+.job-details-footer .apply-button {
   padding: 10px 20px;
   font-size: 16px;
   background-color: #763434;
@@ -32,11 +64,11 @@
   transition: background-color 0.3s ease;
 }
 
-.apply-button:hover {
+.job-details-footer .apply-button:hover {
   background-color: #954343;
 }
 
-.apply-button:disabled {
+.job-details-footer .apply-button:disabled {
   background-color: #9f9e9e;
   cursor: not-allowed;
 }
@@ -58,6 +90,18 @@
 .job-info p {
   margin: 0;
   color: #605e5e;
+}
+
+.job-info p strong select {
+  margin-left: 5px;
+  height: fit-content;
+  width: fit-content;
+}
+
+.job-info p strong input {
+  height: fit-content;
+  width: fit-content;
+  margin-left: 5px;
 }
 
 .job-description {
@@ -132,7 +176,7 @@
 .employer-applications-section h2 {
   margin-top: 0;
   font-size: 1.8rem;
-  color: #333;
+  color: #760c0c;
 }
 
 .employer-application-card {
@@ -165,29 +209,35 @@
   border-radius: 4px;
 }
 
-.edit-button {
-  background-color: rgb(20, 53, 110);
-  width: 80px;
+.employer-application-card .edit-button {
+  background-color: #14356e;
+  width: fit-content;
   color: white;
   font-size: 16px;
   margin-top: 10px;
 }
 
-.edit-button svg {
+.employer-application-card .edit-button svg {
   height: 12px;
   margin-right: 5px;
 }
 
-.edit-button:hover {
-  background-color: rgb(45, 73, 123);
+.employer-application-card .edit-button:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
   transition: ease 0.3s;
 }
 
 .update-application-form button {
-  width: 80px;
+  width: 100px;
   color: white;
   font-size: 16px;
   margin-top: 10px;
+}
+
+.update-application-form button:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
 }
 
 .update-application-form button svg {
@@ -195,15 +245,10 @@
   margin-right: 5px;
 }
 
-.cancel-button {
-  background-color: rgb(187, 19, 19);
-  width: 80px;
-  color: white;
-  font-size: 16px;
-  margin-top: 10px;
+.update-application-form .submit-button {
+  background-color: #0d6e0d;
 }
 
-.cancel-button:hover {
-  background-color: rgb(181, 73, 73);
-  transition: ease 0.3s;
+.update-application-form .cancel-button {
+  background-color: rgb(187, 19, 19);
 }

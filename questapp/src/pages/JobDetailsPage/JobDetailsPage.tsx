@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./JobDetailsPage.css";
 import { useAuth } from "../../auth/AuthContext";
 import Modal from "../../components/Modal";
@@ -10,6 +10,8 @@ import EmployerApplications from "./components/EmployerApplications";
 import ApplicationDetails from "./components/ApplicationDetails";
 import { Job } from "../../types/Job";
 import { Application } from "../../types/Application";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCancel, faPen, faSave } from "@fortawesome/free-solid-svg-icons";
 
 const allowedStatuses = [
   "applied",
@@ -42,6 +44,9 @@ const JobDetailsPage = () => {
   const [activeApplicationId, setActiveApplicationId] = useState<string | null>(
     null
   );
+  const [isEditingJob, setIsEditingJob] = useState(false);
+  const [editedJob, setEditedJob] = useState<Job | null>(null);
+  const location = useLocation();
 
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
@@ -58,6 +63,9 @@ const JobDetailsPage = () => {
         }
         const data = await response.json();
         setJob(data);
+        setEditedJob(data);
+        if (location.state && location.state.isEditingJob)
+          setIsEditingJob(true);
         if (user?.roles.includes("employer") && data.createdBy === user?.id) {
           const response = await fetch(
             `${backendUrl}/api/jobs/${id}/applications`,
@@ -160,6 +168,37 @@ const JobDetailsPage = () => {
     navigate("/login");
   };
 
+  const handleJobInfoChange = (field: keyof Job, value: any) => {
+    if (editedJob) {
+      setEditedJob({ ...editedJob, [field]: value });
+    }
+  };
+
+  const handleSubmitJobUpdate = async () => {
+    if (!editedJob) return;
+    try {
+      const response = await fetch(`${backendUrl}/api/jobs/${job._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(editedJob),
+      });
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error || "Job update failed");
+      }
+      const updatedJob = await response.json();
+      setJob(updatedJob);
+      setEditedJob(updatedJob);
+      setIsEditingJob(false);
+      alert("Job updated successfully!");
+    } catch (err: any) {
+      alert(`Error: ${err.message}`);
+    }
+  };
+
   const handleSubmitApplication = async () => {
     if (!file) {
       alert("Please upload your resume.");
@@ -209,7 +248,6 @@ const JobDetailsPage = () => {
     newFeedback: string | undefined
   ) => {
     try {
-      console.log(newStatus, newFeedback);
       const response = await fetch(
         `${backendUrl}/api/jobs/${job._id}/applications/${applicationId}`,
         {
@@ -258,7 +296,7 @@ const JobDetailsPage = () => {
     }));
   };
 
-  const handleSubmitChanges = (applicationId: string) => {
+  const handleSubmitApplicationChanges = (applicationId: string) => {
     const status =
       updatedApplications[applicationId].status ||
       employerApplications.find((app) => app._id === applicationId)?.status;
@@ -271,22 +309,55 @@ const JobDetailsPage = () => {
     }
   };
 
-  const handleEditClick = (applicationId: string) => {
+  const handleEditApplicationClick = (applicationId: string) => {
     setActiveApplicationId(applicationId);
   };
 
-  const handleCancelClick = () => {
+  const handleCancelApplicationClick = () => {
     setActiveApplicationId(null);
+  };
+
+  const handleEditJobClick = () => {
+    setIsEditingJob(true);
   };
 
   return (
     <div className="job-details-page">
       <section className="job-details-header">
         <h1>{job.title}</h1>
+        {isOwner && !isEditingJob && (
+          <button className="edit-button" onClick={handleEditJobClick}>
+            <FontAwesomeIcon icon={faPen} /> Edit
+          </button>
+        )}
+        {isEditingJob && (
+          <>
+            <button className="save-button" onClick={handleSubmitJobUpdate}>
+              <FontAwesomeIcon icon={faSave} /> Save
+            </button>
+            <button
+              className="cancel-button"
+              onClick={() => {
+                setIsEditingJob(false);
+                setEditedJob(job);
+              }}
+            >
+              <FontAwesomeIcon icon={faCancel} /> Cancel
+            </button>
+          </>
+        )}
       </section>
       <section className="job-details-body">
-        <JobInfo job={job} />
-        <JobDescription job={job} />
+        <JobInfo
+          job={isEditingJob && editedJob ? editedJob : job}
+          isEditingJob={isEditingJob}
+          onChange={handleJobInfoChange}
+        />
+        <JobDescription
+          job={isEditingJob && editedJob ? editedJob : job}
+          isEditingJob={isEditingJob}
+          onChange={handleJobInfoChange}
+        />
       </section>
       <section className="job-details-footer">
         {isOwner ? (
@@ -334,10 +405,10 @@ const JobDetailsPage = () => {
             allowedStatuses={allowedStatuses}
             handleStatusChange={handleStatusChange}
             handleFeedbackChange={handleFeedbackChange}
-            handleSubmitChanges={handleSubmitChanges}
+            handleSubmitChanges={handleSubmitApplicationChanges}
             activeApplicationId={activeApplicationId}
-            handleEditClick={handleEditClick}
-            handleCancelClick={handleCancelClick}
+            handleEditClick={handleEditApplicationClick}
+            handleCancelClick={handleCancelApplicationClick}
           />
         )}
 

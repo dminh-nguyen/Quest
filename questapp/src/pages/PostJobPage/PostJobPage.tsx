@@ -136,7 +136,9 @@ const PostJobPage = () => {
           required
         />
 
-        <button type="submit">Post Job</button>
+        <button className="post-button" type="submit">
+          Post Job
+        </button>
       </form>
     </div>
   );

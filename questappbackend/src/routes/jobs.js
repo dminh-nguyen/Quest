@@ -1,5 +1,6 @@
 const express = require("express");
 const Job = require("../models/Job");
+const Application = require("../models/Application");
 const authMiddleware = require("../middlewares/authentication");
 const requireRole = require("../middlewares/requireRole");
 const BadRequestError = require("../errors/bad-request");
@@ -74,6 +75,25 @@ router.put(
     if (!job) {
       throw new NotFoundError("Job not found");
     }
+    res.status(200).json(job);
+  }
+);
+
+// Delete job
+router.delete(
+  "/:jobId",
+  authMiddleware,
+  requireRole(["employer"]),
+  async (req, res) => {
+    const {
+      user: { userId },
+      params: { jobId },
+    } = req;
+    const job = await Job.findOneAndDelete({ _id: jobId, createdBy: userId });
+    if (!job) {
+      throw new NotFoundError("Job not found");
+    }
+    await Application.deleteMany({ job: jobId });
     res.status(200).json(job);
   }
 );
