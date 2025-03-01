@@ -1,10 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
-import logo from "../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { useState, useRef, useEffect } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 
 const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);

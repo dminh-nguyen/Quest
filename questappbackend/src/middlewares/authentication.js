@@ -1,11 +1,10 @@
 const jwt = require("jsonwebtoken");
+const UnauthorizedError = require("../errors/unauthorized");
 
 const authMiddleware = async (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
-  if (!token)
-    return res.status(401).json({ message: "No token, authorization denied" });
-
+  if (!token) throw new UnauthorizedError("No token, authorization denied");
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = {
@@ -15,7 +14,7 @@ const authMiddleware = async (req, res, next) => {
     };
     next();
   } catch (error) {
-    res.status(401).json({ message: "Token is not valid" });
+    throw new UnauthorizedError("Token is not valid");
   }
 };
 

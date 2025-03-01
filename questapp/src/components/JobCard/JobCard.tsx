@@ -1,6 +1,6 @@
-import { Job } from "../types/Job";
+import { Job } from "../../types/Job";
 import "./JobCard.css";
-import paperPin from "../assets/paper-pin.svg";
+import paperPin from "../../assets/paper-pin.svg";
 import { MouseEventHandler } from "react";
 
 const JobCard = ({

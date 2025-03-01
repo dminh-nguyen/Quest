@@ -1,6 +1,8 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const NotFoundError = require("../errors/not-found");
+const BadRequestError = require("../errors/bad-request");
 const router = express.Router();
 
 // Register
@@ -8,8 +10,7 @@ router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
-  if (userExists)
-    return res.status(400).json({ message: "User already exists" });
+  if (userExists) throw BadRequestError("User already exists");
 
   const user = await User.create({ name, email, password });
   res.status(201).json({
@@ -23,14 +24,14 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({ message: "Please provide email and password!" });
+    throw new BadRequestError("Please provide email and password!");
   }
 
   const user = await User.findOne({ email });
-  if (!user) return res.status(404).json({ message: "User not found" });
+  if (!user) throw new NotFoundError("User not found");
 
   const isMatch = await user.comparePassword(password);
-  if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
+  if (!isMatch) throw new BadRequestError("Invalid credentials");
   const token = user.createJWT();
   res.status(200).json({ token });
 });

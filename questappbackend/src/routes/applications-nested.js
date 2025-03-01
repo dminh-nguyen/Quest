@@ -6,6 +6,8 @@ const requireRole = require("../middlewares/requireRole");
 const authMiddleware = require("../middlewares/authentication");
 const multer = require("multer");
 const path = require("path");
+const BadRequestError = require("../errors/bad-request");
+const NotFoundError = require("../errors/not-found");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -30,11 +32,11 @@ router.post(
   async (req, res) => {
     const { jobId } = req.params;
     if (!req.file) {
-      return res.status(400).json({ error: "File is required" });
+      throw new BadRequestError("File is required");
     }
     const job = await Job.findById(jobId);
     if (!job) {
-      return res.status(404).json({ error: "Job not found" });
+      throw new NotFoundError("Job not found");
     }
     const baseUrl = process.env.BASE_URL || "http://localhost:5000";
     const coverLetterFileUrl = `${baseUrl}/uploads/coverLetters/${req.file.filename}`;
@@ -63,7 +65,7 @@ router.get(
     const { jobId } = req.params;
     const job = await Job.findOne({ _id: jobId, createdBy: req.user.userId });
     if (!job) {
-      return res.status(404).json({ message: "Job not found" });
+      throw new NotFoundError("Job not found or unauthorized");
     }
     const applications = await Application.find({ job: jobId });
     res.status(200).json(applications);
@@ -79,7 +81,7 @@ router.put(
     const { jobId, applicationId } = req.params;
     const job = await Job.findOne({ _id: jobId, createdBy: req.user.userId });
     if (!job) {
-      return res.status(404).json({ message: "Job not found or unauthorized" });
+      throw new NotFoundError("Job not found or unauthorized");
     }
     const { status, feedback } = req.body;
     const allowedStatuses = [
@@ -92,7 +94,7 @@ router.put(
     const updateFields = {};
     if (status && status.trim() !== "") {
       if (!allowedStatuses.includes(status)) {
-        return res.status(400).json({ message: "Invalid status provided" });
+        throw new BadRequestError("Invalid status provided");
       }
       updateFields.status = status;
     }
@@ -101,9 +103,7 @@ router.put(
     }
 
     if (Object.keys(updateFields).length === 0) {
-      return res
-        .status(400)
-        .json({ message: "No valid fields provided for update" });
+      throw new BadRequestError("No valid fields provided for update");
     }
 
     const updatedApplication = await Application.findByIdAndUpdate(
@@ -112,7 +112,7 @@ router.put(
       { new: true, runValidators: true }
     );
     if (!updatedApplication) {
-      return res.status(404).json({ message: "Application not found" });
+      throw new NotFoundError("Application not found");
     }
     res
       .status(200)

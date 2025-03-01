@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./JobsListPage.css";
-import JobCard from "../../components/JobCard";
+import JobCard from "../../components/JobCard/JobCard";
 import { Job } from "../../types/Job";
 import { useNavigate } from "react-router-dom";
 import { EmploymentType, JobCategory, JobHours } from "../../types/JobEnums";

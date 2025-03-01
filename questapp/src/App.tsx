@@ -5,7 +5,7 @@ import JobDetailsPage from "./pages/JobDetailsPage/JobDetailsPage.tsx";
 import LoginPage from "./pages/LoginPage/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.tsx";
 import HomePage from "./pages/HomePage/HomePage.tsx";
-import NavBar from "./components/NavBar.tsx";
+import NavBar from "./components/NavBar/NavBar.tsx";
 import { AuthProvider } from "./auth/AuthContext.tsx";
 import PostJobPage from "./pages/PostJobPage/PostJobPage.tsx";
 import MyApplicationsPage from "./pages/MyApplicationsPage/MyApplicationsPage.tsx";

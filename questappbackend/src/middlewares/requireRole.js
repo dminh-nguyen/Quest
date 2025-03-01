@@ -1,10 +1,12 @@
+const ForbiddenError = require("../errors/forbidden");
+
 const requireRole = (allowedRoles = []) => {
   if (typeof allowedRoles === "string") {
     allowedRoles = [allowedRoles];
   }
   return (req, res, next) => {
     if (!req.user || !req.user.roles) {
-      return res.status(403).json({ message: "Forbidden: no roles assigned" });
+      throw new ForbiddenError("No roles assigned");
     }
 
     const hasPermission = req.user.roles.some((role) =>
@@ -12,9 +14,7 @@ const requireRole = (allowedRoles = []) => {
     );
 
     if (!hasPermission) {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: insufficient permissions" });
+      throw new ForbiddenError("Insufficient permissions");
     }
     next();
   };
