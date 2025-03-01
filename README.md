@@ -50,8 +50,10 @@ npm install
 ```
 
 4. Create .env files for both frontend and backend with necessary environment variables
+5. In the 'questappbackend' folder:
+  - Create a folder named 'uploads', and inside of 'uploads' create a folder named 'coverLetters'.
 
-5. Start the development servers
+6. Start the development servers
 
 ```bash
 # Frontend
